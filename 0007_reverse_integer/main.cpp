@@ -25,11 +25,11 @@ class Solution {
 
 			while (x != 0) {
 				int val = x % 10;
-				x /= 10;
 
 				if (is_overflow(x_reversed, val)) {
 					return 0;
 				} else {
+					x /= 10;
 					x_reversed = x_reversed * 10 + val;
 				}
 			}
