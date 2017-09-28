@@ -15,9 +15,8 @@ class Solution {
 			auto negative = (x < 0);
 			auto x_reversed = 0;
 
-			if (0 == x) {
-				return 0;
-			}
+			if (0 == x) return 0;
+			if (std::numeric_limits<int>::min() == x) return 0;
 
 			if (negative) {
 				x = -x;
