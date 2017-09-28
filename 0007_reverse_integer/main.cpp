@@ -12,8 +12,8 @@ class Solution {
 		}
 
 		int reverse(int x) {
-			bool negative = (x < 0);
-			int x_reversed = 0;
+			auto negative = (x < 0);
+			auto x_reversed = 0;
 
 			if (0 == x) {
 				return 0;
@@ -24,7 +24,7 @@ class Solution {
 			}
 
 			while (x != 0) {
-				int val = x % 10;
+				auto val = x % 10;
 
 				if (is_overflow(x_reversed, val)) {
 					return 0;
