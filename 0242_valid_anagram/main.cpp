@@ -1,23 +1,42 @@
-class Solution {
+class AlphabetToCountMapping {
 	public:
-		typedef std::map<char, int> CountCharMap;
-
-		CountCharMap toMap(const string &s) {
-			CountCharMap m;
-
+		AlphabetToCountMapping(const std::string& s) {
 			for (const auto &c : s) {
-				auto it = m.find(c);
+				auto it = _mapping.find(c);
 
-				if (m.cend() == it) {
-					m[c] = 0;
+				if (_mapping.cend() == it) {
+					_mapping[c] = 0;
 				} else {
 					it->second += 1;
 				}
 			}
-
-			return m;
 		}
 
+		bool operator==(const AlphabetToCountMapping& m) {
+			if (this->_mapping.size() != m._mapping.size()) {
+				return false;
+			}
+
+			for (const auto &e : m._mapping) {
+				auto it = this->_mapping.find(e.first);
+
+				if (this->_mapping.cend() == it) {
+					return false;
+				}
+
+				if (e.second != it->second) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+	private:
+		std::map<char, int> _mapping;
+};
+
+class Solution {
+	public:
 		bool isAnagram(string s, string t) {
 			if (s.size() == 0 && t.size() == 0) {
 				return true;
@@ -27,25 +46,6 @@ class Solution {
 				return false;
 			}
 
-			CountCharMap ms = toMap(s);
-			CountCharMap mt = toMap(t);
-
-			if (ms.size() != mt.size()) {
-				return false;
-			}
-
-			for (const auto &e : ms) {
-				auto mt_it = mt.find(e.first);
-
-				if (mt.cend() == mt_it) {
-					return false;
-				}
-
-				if (e.second != mt_it->second) {
-					return false;
-				}
-			}
-
-			return true;
+			return (AlphabetToCountMapping{s} == AlphabetToCountMapping{t});
 		}
 };
